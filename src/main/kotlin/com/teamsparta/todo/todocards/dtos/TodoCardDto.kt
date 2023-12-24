@@ -1,5 +1,6 @@
-package com.teamsparta.todo.todocards
+package com.teamsparta.todo.todocards.dtos
 
+import com.teamsparta.todo.todocards.TodoCard
 import java.time.ZonedDateTime
 
 data class TodoCardDto(
