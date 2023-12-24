@@ -9,7 +9,7 @@ class TodoCardController(
     val todoCardService: TodoCardService,
 ) {
     @PostMapping
-    fun createTodoCard(): ResponseEntity<Unit> {
+    fun createTodoCard(): ResponseEntity<TodoCardDto> {
         val todoCard =  todoCardService.createTodoCard()
 
         return ResponseEntity
