@@ -14,10 +14,30 @@ class TodoCardController(
     fun createTodoCard(
         @RequestBody createTodoCardArguments: CreateTodoCardArguments,
     ): ResponseEntity<TodoCardDto> {
-        val todoCard =  todoCardService.createTodoCard(createTodoCardArguments)
+        val todoCard = todoCardService.createTodoCard(createTodoCardArguments)
 
         return ResponseEntity
             .status(201)
+            .body(todoCard)
+    }
+
+    @GetMapping
+    fun findAllTodoCard(): ResponseEntity<List<TodoCardDto>> {
+        val todoCards = todoCardService.findAll()
+
+        return ResponseEntity
+            .status(200)
+            .body(todoCards)
+    }
+
+    @GetMapping("/{todoCardId}")
+    fun findTodoCard(
+        @PathVariable todoCardId: Long,
+    ): ResponseEntity<TodoCardDto?> {
+        val todoCard = todoCardService.findById(todoCardId)
+
+        return ResponseEntity
+            .status(200)
             .body(todoCard)
     }
 }
