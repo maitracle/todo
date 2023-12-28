@@ -27,7 +27,7 @@ class TodoCardServiceImpl(
     }
 
     override fun findAll(): List<TodoCardDto> {
-        val foundTodoCards = todoCardRepository.findAll()
+        val foundTodoCards = todoCardRepository.findAllByOrderByCreatedAtDesc()
 
         val result = mutableListOf<TodoCardDto>()
 
