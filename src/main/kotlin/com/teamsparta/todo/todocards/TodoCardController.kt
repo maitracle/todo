@@ -62,6 +62,17 @@ class TodoCardController(
             .body(todoCard)
     }
 
+    @PatchMapping("/{todoCardId}/complete")
+    fun completeTodoCard(
+        @PathVariable todoCardId: Long,
+    ): ResponseEntity<Unit> {
+        todoCardService.completeTodoCard(todoCardId)
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(null)
+    }
+
     @DeleteMapping("/{todoCardId}")
     fun deleteTodoCard(
         @PathVariable todoCardId: Long,

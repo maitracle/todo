@@ -19,4 +19,14 @@ class TodoCard(
     @CreationTimestamp
     @Column(updatable = false)
     val createdAt: ZonedDateTime = ZonedDateTime.now()
+
+    @Column(name = "is_completed")
+    private var _isCompleted: Boolean = false
+
+    val isCompleted: Boolean
+        get() = _isCompleted
+
+    fun complete() {
+        _isCompleted = true
+    }
 }

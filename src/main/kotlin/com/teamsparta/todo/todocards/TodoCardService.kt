@@ -10,4 +10,5 @@ interface TodoCardService {
     fun findAll(): List<TodoCardDto>
     fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments): TodoCardDto
     fun deleteTodoCard(id: Long)
+    fun completeTodoCard(id: Long)
 }

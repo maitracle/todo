@@ -37,4 +37,13 @@ class TodoCardServiceImpl(
     override fun deleteTodoCard(id: Long) {
         todoCardRepository.deleteById(id)
     }
+
+    override fun completeTodoCard(id: Long) {
+        val targetTodoCard = todoCardRepository.findByIdOrNull(id)
+
+        targetTodoCard?.let {
+            it.complete()
+            todoCardRepository.save(it)
+        }
+    }
 }
