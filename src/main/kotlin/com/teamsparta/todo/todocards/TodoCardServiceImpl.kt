@@ -19,23 +19,13 @@ class TodoCardServiceImpl(
     override fun findById(id: Long): TodoCardDto? {
         val foundTodoCard = todoCardRepository.findByIdOrNull(id)
 
-        return if (foundTodoCard != null) {
-            TodoCardDto.from(foundTodoCard)
-        } else {
-            null
-        }
+        return foundTodoCard?.let { TodoCardDto.from(it) }
     }
 
     override fun findAll(): List<TodoCardDto> {
         val foundTodoCards = todoCardRepository.findAllByOrderByCreatedAtDesc()
 
-        val result = mutableListOf<TodoCardDto>()
-
-        for (todoCard in foundTodoCards) {
-            result.add(TodoCardDto.from(todoCard))
-        }
-
-        return result
+        return foundTodoCards.map { TodoCardDto.from(it) }
     }
 
     override fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments): TodoCardDto {

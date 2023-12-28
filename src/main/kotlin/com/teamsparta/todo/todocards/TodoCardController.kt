@@ -3,6 +3,7 @@ package com.teamsparta.todo.todocards
 import com.teamsparta.todo.todocards.dtos.CreateTodoCardArguments
 import com.teamsparta.todo.todocards.dtos.TodoCardDto
 import com.teamsparta.todo.todocards.dtos.UpdateTodoCardArguments
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -18,7 +19,7 @@ class TodoCardController(
         val todoCard = todoCardService.createTodoCard(createTodoCardArguments)
 
         return ResponseEntity
-            .status(201)
+            .status(HttpStatus.CREATED)
             .body(todoCard)
     }
 
@@ -27,7 +28,7 @@ class TodoCardController(
         val todoCards = todoCardService.findAll()
 
         return ResponseEntity
-            .status(200)
+            .status(HttpStatus.OK)
             .body(todoCards)
     }
 
@@ -38,7 +39,7 @@ class TodoCardController(
         val todoCard = todoCardService.findById(todoCardId)
 
         return ResponseEntity
-            .status(200)
+            .status(HttpStatus.OK)
             .body(todoCard)
     }
 
@@ -57,7 +58,7 @@ class TodoCardController(
         val todoCard: TodoCardDto = todoCardService.updateTodoCard(arguments)
 
         return ResponseEntity
-            .status(200)
+            .status(HttpStatus.OK)
             .body(todoCard)
     }
 
@@ -65,11 +66,10 @@ class TodoCardController(
     fun deleteTodoCard(
         @PathVariable todoCardId: Long,
     ): ResponseEntity<Unit> {
-
         todoCardService.deleteTodoCard(todoCardId)
 
         return ResponseEntity
-            .status(204)
+            .status(HttpStatus.NO_CONTENT)
             .body(null)
     }
 }
