@@ -2,6 +2,7 @@ package com.teamsparta.todo.todocards
 
 import com.teamsparta.todo.todocards.dtos.CreateTodoCardArguments
 import com.teamsparta.todo.todocards.dtos.TodoCardDto
+import com.teamsparta.todo.todocards.dtos.UpdateTodoCardArguments
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -35,5 +36,11 @@ class TodoCardServiceImpl(
         }
 
         return result
+    }
+
+    override fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments): TodoCardDto {
+        val savedTodoCard = todoCardRepository.save(todoCardArguments.to())
+
+        return TodoCardDto.from(savedTodoCard)
     }
 }
