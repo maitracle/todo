@@ -43,4 +43,8 @@ class TodoCardServiceImpl(
 
         return TodoCardDto.from(savedTodoCard)
     }
+
+    override fun deleteTodoCard(id: Long) {
+        todoCardRepository.deleteById(id)
+    }
 }

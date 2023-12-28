@@ -60,4 +60,16 @@ class TodoCardController(
             .status(200)
             .body(todoCard)
     }
+
+    @DeleteMapping("/{todoCardId}")
+    fun deleteTodoCard(
+        @PathVariable todoCardId: Long,
+    ): ResponseEntity<Unit> {
+
+        todoCardService.deleteTodoCard(todoCardId)
+
+        return ResponseEntity
+            .status(204)
+            .body(null)
+    }
 }
