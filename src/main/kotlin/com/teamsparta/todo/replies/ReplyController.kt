@@ -4,8 +4,6 @@ import com.teamsparta.todo.replies.dtos.CreateReplyArguments
 import com.teamsparta.todo.replies.dtos.DeleteReplyArguments
 import com.teamsparta.todo.replies.dtos.ReplyDto
 import com.teamsparta.todo.replies.dtos.UpdateReplyArguments
-import com.teamsparta.todo.todocards.dtos.TodoCardDto
-import com.teamsparta.todo.todocards.dtos.UpdateTodoCardArguments
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -34,6 +32,7 @@ class ReplyController(
         val arguments = UpdateReplyArguments(
             id = replyId,
             content = updateReplyArguments.content,
+            authorName = updateReplyArguments.authorName,
             password = updateReplyArguments.password,
         )
         val reply = replyService.updateReply(arguments)
@@ -50,6 +49,7 @@ class ReplyController(
     ): ResponseEntity<Unit> {
         val arguments = DeleteReplyArguments(
             id = replyId,
+            authorName = deleteReplyArguments.authorName,
             password = deleteReplyArguments.password,
         )
 

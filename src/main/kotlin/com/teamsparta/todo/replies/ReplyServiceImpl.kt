@@ -7,13 +7,12 @@ import com.teamsparta.todo.replies.dtos.UpdateReplyArguments
 import com.teamsparta.todo.todocards.TodoCardRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
-import kotlin.Exception
 
 @Service
 class ReplyServiceImpl(
     val replyRepository: ReplyRepository,
     val todoCardRepository: TodoCardRepository,
-): ReplyService {
+) : ReplyService {
     override fun createReply(createReplyArguments: CreateReplyArguments): ReplyDto {
         val targetTodoCard = todoCardRepository.findByIdOrNull(createReplyArguments.todoCardId)
             ?: throw Exception("target todo card is not found")
@@ -35,6 +34,10 @@ class ReplyServiceImpl(
             replyRepository.findByIdOrNull(it)
         } ?: throw Exception("target reply is not found")
 
+        if (foundReply.password != updateReplyArguments.password || foundReply.authorName != updateReplyArguments.authorName) {
+            throw Exception("wrong password for reply")
+        }
+
         foundReply.changeContent(updateReplyArguments.content)
 
         replyRepository.save(foundReply)
@@ -43,8 +46,14 @@ class ReplyServiceImpl(
     }
 
     override fun deleteReply(deleteReplyArguments: DeleteReplyArguments) {
-        deleteReplyArguments.id?.let {
-            replyRepository.deleteById(it)
+        val foundReply = deleteReplyArguments.id?.let {
+            replyRepository.findByIdOrNull(it)
+        } ?: throw Exception("target reply is not found")
+
+        if (foundReply.password != deleteReplyArguments.password || foundReply.authorName != deleteReplyArguments.authorName) {
+            throw Exception("wrong password for reply")
         }
+
+        replyRepository.deleteById(deleteReplyArguments.id)
     }
 }
