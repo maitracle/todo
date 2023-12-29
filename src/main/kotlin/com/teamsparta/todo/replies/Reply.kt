@@ -9,11 +9,15 @@ class Reply(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
     @Column
-    val content: String,
+    var content: String,
     @Column
     val authorName: String,
     @Column
     val password: String,
     @ManyToOne
     var todoCard: TodoCard,
-)
+) {
+    fun changeContent(content: String) {
+        this.content = content
+    }
+}
