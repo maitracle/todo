@@ -1,5 +1,6 @@
 package com.teamsparta.todo.todocards
 
+import com.teamsparta.todo.replies.Reply
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import java.time.ZonedDateTime
@@ -15,6 +16,8 @@ class TodoCard(
     val content: String,
     @Column
     val authorName: String,
+    @OneToMany(mappedBy = "todoCard")
+    val replies: List<Reply> = emptyList(),
 ) {
     @CreationTimestamp
     @Column(updatable = false)
