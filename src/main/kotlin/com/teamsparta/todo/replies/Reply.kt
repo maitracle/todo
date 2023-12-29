@@ -20,4 +20,14 @@ class Reply(
     fun changeContent(content: String) {
         this.content = content
     }
+
+    fun checkAuthentication(authorName: String, password: String) {
+        if (authorName != this.authorName) {
+            throw Exception("wrong authentication for reply")
+        }
+
+        if (password != this.password) {
+            throw Exception("wrong authentication for reply")
+        }
+    }
 }

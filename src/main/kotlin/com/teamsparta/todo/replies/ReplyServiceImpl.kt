@@ -34,9 +34,7 @@ class ReplyServiceImpl(
             replyRepository.findByIdOrNull(it)
         } ?: throw Exception("target reply is not found")
 
-        if (foundReply.password != updateReplyArguments.password || foundReply.authorName != updateReplyArguments.authorName) {
-            throw Exception("wrong password for reply")
-        }
+        foundReply.checkAuthentication(updateReplyArguments.authorName, updateReplyArguments.password)
 
         foundReply.changeContent(updateReplyArguments.content)
 
@@ -50,9 +48,7 @@ class ReplyServiceImpl(
             replyRepository.findByIdOrNull(it)
         } ?: throw Exception("target reply is not found")
 
-        if (foundReply.password != deleteReplyArguments.password || foundReply.authorName != deleteReplyArguments.authorName) {
-            throw Exception("wrong password for reply")
-        }
+        foundReply.checkAuthentication(deleteReplyArguments.authorName, deleteReplyArguments.password)
 
         replyRepository.deleteById(deleteReplyArguments.id)
     }
