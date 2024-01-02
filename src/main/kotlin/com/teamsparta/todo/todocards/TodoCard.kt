@@ -19,6 +19,16 @@ class TodoCard(
     @OneToMany(mappedBy = "todoCard")
     val replies: List<Reply> = emptyList(),
 ) {
+    init {
+        if (this.title.isEmpty() || this.title.length > 200) {
+            throw Exception("title should have 1 to 1000 length title")
+        }
+
+        if (this.content.isEmpty() || this.content.length > 1000) {
+            throw Exception("title should have 1 to 1000 length title")
+        }
+    }
+
     @CreationTimestamp
     @Column(updatable = false)
     val createdAt: ZonedDateTime = ZonedDateTime.now()
