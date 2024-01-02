@@ -87,4 +87,11 @@ class TodoCardController(
             .status(HttpStatus.NO_CONTENT)
             .body(null)
     }
+
+    @ExceptionHandler
+    fun handle(exception: TodoCardException?): ResponseEntity<String> {
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(exception?.message)
+    }
 }

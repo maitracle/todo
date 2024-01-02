@@ -21,11 +21,11 @@ class TodoCard(
 ) {
     init {
         if (this.title.isEmpty() || this.title.length > 200) {
-            throw Exception("title should have 1 to 1000 length title")
+            throw TodoCardException("title must be at least 1 character and not more than 200 characters long")
         }
 
         if (this.content.isEmpty() || this.content.length > 1000) {
-            throw Exception("title should have 1 to 1000 length title")
+            throw TodoCardException("content must be at least 1 character and not more than 1000 characters long")
         }
     }
 
