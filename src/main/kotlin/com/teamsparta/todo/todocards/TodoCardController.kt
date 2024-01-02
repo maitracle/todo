@@ -25,8 +25,10 @@ class TodoCardController(
     }
 
     @GetMapping
-    fun findAllTodoCard(): ResponseEntity<List<TodoCardDto>> {
-        val todoCards = todoCardService.findAll()
+    fun findAllTodoCard(
+        @RequestParam sort: String?,
+    ): ResponseEntity<List<TodoCardDto>> {
+        val todoCards = todoCardService.findAll(sort)
 
         return ResponseEntity
             .status(HttpStatus.OK)

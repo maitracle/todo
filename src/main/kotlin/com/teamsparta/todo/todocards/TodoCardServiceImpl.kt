@@ -23,10 +23,12 @@ class TodoCardServiceImpl(
         return foundTodoCard?.let { RetrieveTodoCardDto.from(it) }
     }
 
-    override fun findAll(): List<TodoCardDto> {
-        val foundTodoCards = todoCardRepository.findAllByOrderByCreatedAtDesc()
-
-        return foundTodoCards.map { TodoCardDto.from(it) }
+    override fun findAll(sort: String?): List<TodoCardDto> {
+        return if (sort == "createdAt") {
+            todoCardRepository.findAllByOrderByCreatedAtAsc()
+        } else {
+            todoCardRepository.findAllByOrderByCreatedAtDesc()
+        }.map { TodoCardDto.from(it) }
     }
 
     override fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments): TodoCardDto {
