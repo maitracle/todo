@@ -134,4 +134,22 @@ class TodoCardTest : BehaviorSpec({
             }
         }
     }
+
+    Given("a TodoCard") {
+        val todoCard = TodoCard(
+            id = null,
+            title = "title",
+            content = "content",
+            authorName = "authorName",
+            replies = emptyList(),
+        )
+
+        When("execute complete") {
+            todoCard.complete()
+
+            Then("result should be expected") {
+                todoCard.isCompleted shouldBe true
+            }
+        }
+    }
 })
