@@ -19,7 +19,7 @@ class RetrieveTodoCardDto(
                 id = todoCard.id,
                 title = todoCard.title,
                 content = todoCard.content,
-                authorName = todoCard.authorName,
+                authorName = todoCard.author.username,
                 isCompleted = todoCard.isCompleted,
                 createdAt = todoCard.createdAt,
                 replies = todoCard.replies.map { ReplyDto.from(it) }

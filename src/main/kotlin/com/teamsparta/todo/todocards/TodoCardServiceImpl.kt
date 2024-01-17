@@ -4,6 +4,7 @@ import com.teamsparta.todo.todocards.dtos.CreateTodoCardArguments
 import com.teamsparta.todo.todocards.dtos.RetrieveTodoCardDto
 import com.teamsparta.todo.todocards.dtos.TodoCardDto
 import com.teamsparta.todo.todocards.dtos.UpdateTodoCardArguments
+import com.teamsparta.todo.users.User
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -11,8 +12,8 @@ import org.springframework.stereotype.Service
 class TodoCardServiceImpl(
     val todoCardRepository: TodoCardRepository,
 ): TodoCardService {
-    override fun createTodoCard(createTodoCardArguments: CreateTodoCardArguments): TodoCardDto {
-        val savedTodoCard = todoCardRepository.save(createTodoCardArguments.to())
+    override fun createTodoCard(createTodoCardArguments: CreateTodoCardArguments, author: User): TodoCardDto {
+        val savedTodoCard = todoCardRepository.save(createTodoCardArguments.to(author))
 
         return TodoCardDto.from(savedTodoCard)
     }
@@ -23,9 +24,9 @@ class TodoCardServiceImpl(
         return foundTodoCard?.let { RetrieveTodoCardDto.from(it) }
     }
 
-    override fun findAll(authorName: String?, sort: String?): List<TodoCardDto> {
-        authorName?.let {
-            return todoCardRepository.findAllByAuthorName(authorName)
+    override fun findAll(authorId: Long?, sort: String?): List<TodoCardDto> {
+        authorId?.let {
+            return todoCardRepository.findAllByAuthorId(authorId)
                 .map { TodoCardDto.from(it) }
         }
 
@@ -36,8 +37,8 @@ class TodoCardServiceImpl(
         }.map { TodoCardDto.from(it) }
     }
 
-    override fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments): TodoCardDto {
-        val savedTodoCard = todoCardRepository.save(todoCardArguments.to())
+    override fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments, user: User): TodoCardDto {
+        val savedTodoCard = todoCardRepository.save(todoCardArguments.to(user))
 
         return TodoCardDto.from(savedTodoCard)
     }

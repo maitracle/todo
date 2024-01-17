@@ -17,7 +17,7 @@ data class TodoCardDto(
                 id = todoCard.id,
                 title = todoCard.title,
                 content = todoCard.content,
-                authorName = todoCard.authorName,
+                authorName = todoCard.author.username,
                 isCompleted = todoCard.isCompleted,
                 createdAt = todoCard.createdAt,
             )
