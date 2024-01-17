@@ -17,7 +17,7 @@ class TodoCard(
     val content: String,
     @ManyToOne
     val author: User,
-    @OneToMany(mappedBy = "todoCard")
+    @OneToMany(mappedBy = "todoCard", fetch = FetchType.LAZY)
     val replies: List<Reply> = emptyList(),
 ) {
     init {

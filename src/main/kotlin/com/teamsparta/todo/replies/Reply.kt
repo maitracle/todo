@@ -11,9 +11,9 @@ class Reply(
     var id: Long? = null,
     @Column
     var content: String,
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     val author: User,
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     var todoCard: TodoCard,
 ) {
     fun changeContent(content: String) {
