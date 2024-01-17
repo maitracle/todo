@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.9.21"
     kotlin("plugin.spring") version "1.9.21"
     kotlin("plugin.jpa") version "1.9.21"
+    kotlin("kapt") version "1.8.22"
 }
 
 group = "com.teamsparta"
@@ -21,6 +22,7 @@ repositories {
 
 val kotestVersion = "5.5.5"
 val mockkVersion = "1.13.8"
+val queryDslVersion = "5.0.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -41,6 +43,9 @@ dependencies {
 
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
+
+    implementation("com.querydsl:querydsl-jpa:$queryDslVersion:jakarta") // 추가!
+    kapt("com.querydsl:querydsl-apt:$queryDslVersion:jakarta") // 추가!
 }
 
 tasks.withType<KotlinCompile> {
