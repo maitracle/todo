@@ -1,6 +1,7 @@
 package com.teamsparta.todo.replies
 
 import com.teamsparta.todo.todocards.TodoCard
+import com.teamsparta.todo.users.User
 import jakarta.persistence.*
 
 @Entity
@@ -10,10 +11,8 @@ class Reply(
     var id: Long? = null,
     @Column
     var content: String,
-    @Column
-    val authorName: String,
-    @Column
-    val password: String,
+    @ManyToOne
+    val author: User,
     @ManyToOne
     var todoCard: TodoCard,
 ) {
@@ -21,13 +20,9 @@ class Reply(
         this.content = content
     }
 
-    fun checkAuthentication(authorName: String, password: String) {
-        if (authorName != this.authorName) {
-            throw Exception("wrong authentication for reply")
-        }
-
-        if (password != this.password) {
-            throw Exception("wrong authentication for reply")
+    fun checkAuthorization(user: User) {
+        if (this.author.id != user.id) {
+            throw Exception("no permission")
         }
     }
 }

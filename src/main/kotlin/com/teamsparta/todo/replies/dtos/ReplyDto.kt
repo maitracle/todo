@@ -13,7 +13,7 @@ class ReplyDto(
             return ReplyDto(
                 id = reply.id,
                 content = reply.content,
-                authorName = reply.authorName,
+                authorName = reply.author.username,
                 todoCardId = reply.todoCard.id ?: throw Exception("target todo card is not persisted"),
             )
         }
