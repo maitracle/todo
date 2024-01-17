@@ -1,6 +1,7 @@
 package com.teamsparta.todo.users
 
 import com.teamsparta.todo.users.dtos.CreateUserArguments
+import com.teamsparta.todo.users.dtos.SignInArguments
 import com.teamsparta.todo.users.dtos.UserDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,5 +24,14 @@ class UserController(
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(user)
+    }
+
+    @PostMapping("/sign-in")
+    fun signIn(@RequestBody signInRequest: SignInArguments): ResponseEntity<UserDto> {
+        val result = userService.signIn(signInRequest)
+
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(result)
     }
 }
