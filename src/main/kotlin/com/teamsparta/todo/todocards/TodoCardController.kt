@@ -49,6 +49,9 @@ class TodoCardController(
         @PathVariable todoCardId: Long,
     ): ResponseEntity<RetrieveTodoCardDto?> {
         val todoCard = todoCardService.findById(todoCardId)
+            ?: return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(null)
 
         return ResponseEntity
             .status(HttpStatus.OK)
