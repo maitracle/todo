@@ -1,6 +1,7 @@
 package com.teamsparta.todo.todocards
 
 import com.teamsparta.todo.replies.Reply
+import com.teamsparta.todo.users.User
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
@@ -13,7 +14,7 @@ class TodoCardTest : BehaviorSpec({
         val id = null
         val title = "title"
         val content = "content"
-        val authorName = "authorName"
+        val author = User(1, "username", "password")
         val replies = emptyList<Reply>()
 
         When("execute TodoCard constructor") {
@@ -21,7 +22,7 @@ class TodoCardTest : BehaviorSpec({
                 id = id,
                 title = title,
                 content = content,
-                authorName = authorName,
+                author = author,
                 replies = replies,
             )
 
@@ -29,7 +30,7 @@ class TodoCardTest : BehaviorSpec({
                 result.id shouldBe id
                 result.title shouldBe title
                 result.content shouldBe content
-                result.authorName shouldBe authorName
+                result.author shouldBe author
                 result.replies shouldBe replies
             }
         }
@@ -39,7 +40,7 @@ class TodoCardTest : BehaviorSpec({
         val id = null
         val title = ""
         val content = "content"
-        val authorName = "authorName"
+        val author = User(1, "username", "password")
         val replies = emptyList<Reply>()
 
         When("execute TodoCard constructor") {
@@ -48,7 +49,7 @@ class TodoCardTest : BehaviorSpec({
                     id = id,
                     title = title,
                     content = content,
-                    authorName = authorName,
+                    author = author,
                     replies = replies,
                 )
             }
@@ -63,7 +64,7 @@ class TodoCardTest : BehaviorSpec({
         val id = null
         val title = "title"
         val content = ""
-        val authorName = "authorName"
+        val author = User(1, "username", "password")
         val replies = emptyList<Reply>()
 
         When("execute TodoCard constructor") {
@@ -72,7 +73,7 @@ class TodoCardTest : BehaviorSpec({
                     id = id,
                     title = title,
                     content = content,
-                    authorName = authorName,
+                    author = author,
                     replies = replies,
                 )
             }
@@ -89,7 +90,7 @@ class TodoCardTest : BehaviorSpec({
             .map { Random.nextInt(0, charPool.size).let { charPool[it] } }
             .joinToString("")
         val content = "content"
-        val authorName = "authorName"
+        val author = User(1, "username", "password")
         val replies = emptyList<Reply>()
 
         When("execute TodoCard constructor") {
@@ -98,7 +99,7 @@ class TodoCardTest : BehaviorSpec({
                     id = id,
                     title = title,
                     content = content,
-                    authorName = authorName,
+                    author = author,
                     replies = replies,
                 )
             }
@@ -115,7 +116,7 @@ class TodoCardTest : BehaviorSpec({
         val content = (0..1000)
             .map { Random.nextInt(0, charPool.size).let { charPool[it] } }
             .joinToString("")
-        val authorName = "authorName"
+        val author = User(1, "username", "password")
         val replies = emptyList<Reply>()
 
         When("execute TodoCard constructor") {
@@ -124,7 +125,7 @@ class TodoCardTest : BehaviorSpec({
                     id = id,
                     title = title,
                     content = content,
-                    authorName = authorName,
+                    author = author,
                     replies = replies,
                 )
             }
@@ -136,11 +137,13 @@ class TodoCardTest : BehaviorSpec({
     }
 
     Given("a TodoCard") {
+        val author = User(1, "username", "password")
+
         val todoCard = TodoCard(
             id = null,
             title = "title",
             content = "content",
-            authorName = "authorName",
+            author = author,
             replies = emptyList(),
         )
 

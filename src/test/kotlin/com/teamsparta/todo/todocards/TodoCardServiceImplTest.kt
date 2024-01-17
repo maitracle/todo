@@ -1,5 +1,6 @@
 package com.teamsparta.todo.todocards
 
+import com.teamsparta.todo.users.User
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -15,7 +16,7 @@ class TodoCardServiceImplTest : BehaviorSpec({
         id = savedTodoCardId,
         title = "title",
         content = "content",
-        authorName = "authorName",
+        author = User(1, "username", "password"),
         replies = emptyList(),
     )
     every { todoCardRepository.findByIdOrNull(savedTodoCardId) } returns savedTodoCard
@@ -37,7 +38,7 @@ class TodoCardServiceImplTest : BehaviorSpec({
                     it.id shouldBe savedTodoCard.id
                     it.title shouldBe savedTodoCard.title
                     it.content shouldBe savedTodoCard.content
-                    it.authorName shouldBe savedTodoCard.authorName
+                    it.authorName shouldBe savedTodoCard.author.username
                     it.replies shouldBe savedTodoCard.replies
                 }
             }
