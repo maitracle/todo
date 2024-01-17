@@ -38,21 +38,35 @@ class TodoCardServiceImpl(
     }
 
     override fun updateTodoCard(todoCardArguments: UpdateTodoCardArguments, user: User): TodoCardDto {
+        todoCardArguments.id ?: throw Exception("todo card is not found")
+
+        val foundTodoCard = todoCardRepository.findByIdOrNull(todoCardArguments.id)
+            ?: throw Exception("todo card is not found")
+
+        foundTodoCard.checkAuthorization(user)
+
         val savedTodoCard = todoCardRepository.save(todoCardArguments.to(user))
 
         return TodoCardDto.from(savedTodoCard)
     }
 
-    override fun deleteTodoCard(id: Long) {
+    override fun deleteTodoCard(id: Long, user: User) {
+        val foundTodoCard = todoCardRepository.findByIdOrNull(id)
+            ?: throw Exception("todo card is not found")
+
+        foundTodoCard.checkAuthorization(user)
+
         todoCardRepository.deleteById(id)
     }
 
-    override fun completeTodoCard(id: Long) {
+    override fun completeTodoCard(id: Long, user: User): TodoCardDto {
         val targetTodoCard = todoCardRepository.findByIdOrNull(id)
+            ?: throw Exception("todo card is not found")
 
-        targetTodoCard?.let {
-            it.complete()
-            todoCardRepository.save(it)
-        }
+        targetTodoCard.complete()
+
+        val result = todoCardRepository.save(targetTodoCard)
+
+        return TodoCardDto.from(result)
     }
 }

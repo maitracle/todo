@@ -79,19 +79,25 @@ class TodoCardController(
     @PatchMapping("/{todoCardId}/complete")
     fun completeTodoCard(
         @PathVariable todoCardId: Long,
-    ): ResponseEntity<Unit> {
-        todoCardService.completeTodoCard(todoCardId)
+        authentication: Authentication,
+    ): ResponseEntity<TodoCardDto> {
+        val userPrincipal = authentication.principal as UserPrincipal
+
+        val result = todoCardService.completeTodoCard(todoCardId, userPrincipal.to())
 
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(null)
+            .body(result)
     }
 
     @DeleteMapping("/{todoCardId}")
     fun deleteTodoCard(
         @PathVariable todoCardId: Long,
+        authentication: Authentication,
     ): ResponseEntity<Unit> {
-        todoCardService.deleteTodoCard(todoCardId)
+        val userPrincipal = authentication.principal as UserPrincipal
+
+        todoCardService.deleteTodoCard(todoCardId, userPrincipal.to())
 
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)

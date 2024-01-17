@@ -43,4 +43,10 @@ class TodoCard(
     fun complete() {
         _isCompleted = true
     }
+
+    fun checkAuthorization(requestUser: User) {
+        if (requestUser.id != author.id) {
+            throw Exception("not permitted")
+        }
+    }
 }
