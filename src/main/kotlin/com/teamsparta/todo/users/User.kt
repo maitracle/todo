@@ -2,7 +2,7 @@ package com.teamsparta.todo.users
 
 import jakarta.persistence.*
 
-@Entity
+@Entity(name = "todo_user")
 class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
